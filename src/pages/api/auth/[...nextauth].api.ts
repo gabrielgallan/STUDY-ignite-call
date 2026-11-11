@@ -1,14 +1,43 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { PrismaAdapter } from '@/src/lib/auth/prisma-adapter';
 
-export const authOptions: NextAuthOptions = {
-    // Configure one or more authentication providers
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        }),
-    ],
-};
+export function buildNextAuthOptions(req: NextApiRequest, res: NextApiResponse): NextAuthOptions {
+    return {
+        adapter: PrismaAdapter(req, res),
 
-export default NextAuth(authOptions);
+        // Configure one or more authentication providers
+        providers: [
+            GoogleProvider({
+                clientId: process.env.GOOGLE_CLIENT_ID as string,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+                authorization: {
+                    params: {
+                        scope: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+                    },
+                },
+            }),
+        ],
+        callbacks: {
+            async signIn({ account }) {
+                if (!account?.scope?.includes('https://www.googleapis.com/auth/calendar')) {
+                    return '/register/connect-calendar/?error=permissions';
+                }
+
+                return true;
+            },
+
+            async session({ session, user }) {
+                return {
+                    ...session,
+                    user,
+                };
+            },
+        },
+    };
+}
+
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+    return await NextAuth(req, res, buildNextAuthOptions(req, res));
+}

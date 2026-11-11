@@ -10,7 +10,8 @@
       "!!**/build",
       "!!**/coverage",
       "!!**/.turbo",
-      "!!**/node_modules"
+      "!!**/node_modules",
+      "!!**/*.d.ts"
     ]
   },
   "formatter": {
