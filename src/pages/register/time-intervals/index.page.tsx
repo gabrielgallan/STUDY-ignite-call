@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Checkbox, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react';
 import { ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/router';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { api } from '@/src/lib/axios';
@@ -68,6 +69,8 @@ export default function TimeIntervals() {
         },
     });
 
+    const router = useRouter();
+
     const { fields } = useFieldArray({
         name: 'intervals',
         control,
@@ -79,6 +82,8 @@ export default function TimeIntervals() {
         const formData = data as TimeIntervalsFormOutput;
 
         await api.post('/users/time-intervals', formData);
+
+        await router.push('/register/update-profile');
     }
 
     return (

@@ -15,6 +15,7 @@ datasource db {
 model User {
   id         String   @id @default(cuid())
   username   String   @unique
+  bio        String?
   name       String
   email      String?  @unique
   avatar_url String?
