@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import { Container, Header } from '../styles';
 import { AuthError, ConnectBox, ConnectItem } from './styles';
+import { generateNextSeo } from 'next-seo/pages';
+import Head from 'next/head';
 
 export default function ConnectCalendar() {
     const session = useSession();
@@ -21,6 +23,13 @@ export default function ConnectCalendar() {
     }
 
     return (
+        <>
+            <Head>
+                        {generateNextSeo({
+                            title: 'Conecte sua agenda do Google',
+                            noindex: true
+                        })}
+                    </Head>
         <Container>
             <Header>
                 <Heading as="strong">Conecte sua agenda!</Heading>
@@ -62,5 +71,6 @@ export default function ConnectCalendar() {
                 </Button>
             </ConnectBox>
         </Container>
+        </>
     );
 }

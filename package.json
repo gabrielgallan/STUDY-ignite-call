@@ -25,6 +25,7 @@
         "lucide-react": "^1.70.0",
         "next": "16.4.5",
         "next-auth": "^4.24.15",
+        "next-seo": "^7.3.0",
         "pg": "8.23.1",
         "react": "19.3.0",
         "react-dom": "19.3.0",
@@ -32,6 +33,7 @@
         "zod": "^4.6.7"
     },
     "devDependencies": {
+        "@biomejs/monorepo": "github:biomejs/biome",
         "@tailwindcss/turbopack": "^4",
         "@types/node": "^20",
         "@types/react": "^19",

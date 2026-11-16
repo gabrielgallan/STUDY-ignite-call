@@ -28,7 +28,7 @@ importers:
         version: 5.107.1(@types/react@19.3.0)(react@19.3.0)
       axios:
         specifier: ^1.21.1
-        version: 1.21.1
+        version: 1.21.1(debug@4.4.3)
       cookies-next:
         specifier: ^6.1.1
         version: 6.1.1(next@16.4.5(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
@@ -50,6 +50,9 @@ importers:
       next-auth:
         specifier: ^4.24.15
         version: 4.24.15(next@16.4.5(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      next-seo:
+        specifier: ^7.3.0
+        version: 7.3.0(next@16.4.5(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
       pg:
         specifier: 8.23.1
         version: 8.23.1
@@ -66,6 +69,9 @@ importers:
         specifier: ^4.6.7
         version: 4.6.7
     devDependencies:
+      '@biomejs/monorepo':
+        specifier: github:biomejs/biome
+        version: https://codeload.github.com/biomejs/biome/tar.gz/721c1835ce2b972e16f82681aa05f18517e6a7a7
       '@tailwindcss/turbopack':
         specifier: ^4
         version: 4.3.5
@@ -120,6 +126,11 @@ packages:
   '@babel/types@7.29.11':
     resolution: {integrity: sha512-WCsemW40Cpc6gouC1SrY6PBaZ+oLRlEVY9XBvZBI7il/HyUrb2nJ505wE1MHEFyDZNnrWDEuy4jL50WVHfTTSQ==}
     engines: {node: '>=6.9.0'}
+
+  '@biomejs/monorepo@https://codeload.github.com/biomejs/biome/tar.gz/721c1835ce2b972e16f82681aa05f18517e6a7a7':
+    resolution: {gitHosted: true, integrity: sha512-XVanzwgBX0dPpdfgF3IkzETGYtRMx+nj0xWTk9bCay6xlDtj9hWB7suGBiPJCoUdal8IyZgVP7neU2kTKgu99g==, tarball: https://codeload.github.com/biomejs/biome/tar.gz/721c1835ce2b972e16f82681aa05f18517e6a7a7}
+    version: 0.0.0
+    engines: {node: '>=22.13', pnpm: 12.6.0}
 
   '@electric-sql/pglite-socket@0.1.3':
     resolution: {integrity: sha512-LAciWM0M1dCL8hlsxu2venbVZcdxema0BtDfpWYVqr+Y468UADw0pFWidhKw1M8sfJ8rdLT71tjMmnirf/IZRQ==}
@@ -1559,6 +1570,12 @@ packages:
       nodemailer:
         optional: true
 
+  next-seo@7.3.0:
+    resolution: {integrity: sha512-j8tO4dZRBcl2jQjVSXVQmnkUHRE3czl+0Bu4Oeo3Ttwfj8yQOS6k4Esd+tPOMCZ0KhTUwQoWnGGGPBoHcCHyqg==}
+    peerDependencies:
+      next: '>=13.4.0'
+      react: '>=18.2.0'
+
   next@16.4.5:
     resolution: {integrity: sha512-rmdfsWosjTUO+6R0S3KokoIk6Kj0sWDRTe86tZHdqaWH/oXq/udX3/4xb+YQi7aWbyEFoglDU54kaifLCdXbBw==}
     engines: {node: '>=20.9.0'}
@@ -2004,6 +2021,8 @@ snapshots:
       '@babel/helper-string-parser': 7.29.13
       '@babel/helper-validator-identifier': 7.29.7
     optional: true
+
+  '@biomejs/monorepo@https://codeload.github.com/biomejs/biome/tar.gz/721c1835ce2b972e16f82681aa05f18517e6a7a7': {}
 
   '@electric-sql/pglite-socket@0.1.3(@electric-sql/pglite@0.4.3)':
     dependencies:
@@ -2715,9 +2734,9 @@ snapshots:
 
   aws-ssl-profiles@1.1.2: {}
 
-  axios@1.21.1:
+  axios@1.21.1(debug@4.4.3):
     dependencies:
-      follow-redirects: 1.16.3
+      follow-redirects: 1.16.3(debug@4.4.3)
       form-data: 4.0.6
       https-proxy-agent: 5.0.1
       proxy-from-env: 2.1.0
@@ -2983,7 +3002,9 @@ snapshots:
       fast-querystring: 1.1.2
       safe-regex2: 5.1.2
 
-  follow-redirects@1.16.3: {}
+  follow-redirects@1.16.3(debug@4.4.3):
+    optionalDependencies:
+      debug: 4.4.3
 
   foreground-child@3.3.1:
     dependencies:
@@ -3285,6 +3306,11 @@ snapshots:
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
       uuid: 11.1.1
+
+  next-seo@7.3.0(next@16.4.5(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0):
+    dependencies:
+      next: 16.4.5(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react: 19.3.0
 
   next@16.4.5(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:

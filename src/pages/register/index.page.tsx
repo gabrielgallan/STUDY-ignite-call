@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { api } from '@/src/lib/axios';
 import { Container, Form, FormError, Header } from './styles';
+import Head from 'next/head';
+import { generateNextSeo } from 'next-seo/pages';
 
 const registerFormSchema = z.object({
     username: z
@@ -52,6 +54,12 @@ export default function Register() {
     }
 
     return (
+        <>
+            <Head>
+                {generateNextSeo({
+                    title: 'Crie uma conta',
+                })}
+            </Head>
         <Container>
             <Header>
                 <Heading as="strong">Bem vindo ao Ignite Call!</Heading>
@@ -90,5 +98,6 @@ export default function Register() {
                 </Button>
             </Form>
         </Container>
+        </>
     );
 }

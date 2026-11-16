@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { google } from 'googleapis';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
-// import { getGoogleOAuthToken } from '../../../../lib/google'
 import { prisma } from '@/src/database/prisma';
+import { getGoogleOAuthToken } from '@/src/lib/google';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
@@ -24,9 +24,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const createSchedulingBody = z.object({
         name: z.string(),
-        email: z.string().email(),
+        email: z.email(),
         observations: z.string(),
-        date: z.string().datetime(),
+        date: z.string()
     });
 
     const { name, email, observations, date } = createSchedulingBody.parse(req.body);
@@ -48,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (conflictingScheduling) {
         return res.status(400).json({
-            message: 'There is another scheduling at at the same time.',
+            message: 'There is another scheduling at the same time.',
         });
     }
 
@@ -64,32 +64,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const calendar = google.calendar({
         version: 'v3',
-        // auth: await getGoogleOAuthToken(user.id),
-    });
+        auth: await getGoogleOAuthToken(user.id)
+    })
 
     await calendar.events.insert({
         calendarId: 'primary',
         conferenceDataVersion: 1,
         requestBody: {
-            summary: `Ignite Call: ${name}`,
+            summary: `Ignite Call ${name}`,
             description: observations,
             start: {
-                dateTime: schedulingDate.format(),
+                dateTime: schedulingDate.format()
             },
             end: {
-                dateTime: schedulingDate.add(1, 'hour').format(),
+                dateTime: schedulingDate.add(1, 'hour').format()
             },
-            attendees: [{ email, displayName: name }],
+            attendees: [
+                { email, displayName: name }
+            ],
             conferenceData: {
                 createRequest: {
                     requestId: scheduling.id,
                     conferenceSolutionKey: {
-                        type: 'hangoutsMeet',
-                    },
-                },
-            },
-        },
-    });
+                        type: 'hangoutsMeet'
+                    }
+                }
+            }
+        }
+    })
 
     return res.status(201).end();
 }

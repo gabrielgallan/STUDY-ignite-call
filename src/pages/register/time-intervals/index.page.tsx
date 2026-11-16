@@ -9,6 +9,8 @@ import { convertTimeStringToMinutes } from '@/src/utils/convert-time-string-to-m
 import { getWeekDays } from '../../../utils/get-week-days';
 import { Container, Header } from '../styles';
 import { FormError, IntervalBox, IntervalContainer, IntervalDay, IntervalInputs, IntervalItem } from './styles';
+import Head from 'next/head';
+import { generateNextSeo } from 'next-seo/pages';
 
 const timeIntervalsFormSchema = z.object({
     intervals: z
@@ -87,6 +89,13 @@ export default function TimeIntervals() {
     }
 
     return (
+        <>
+            <Head>
+                                {generateNextSeo({
+                                    title: 'Selecione sua disponibilidade',
+                                    noindex: true
+                                })}
+                            </Head>
         <Container>
             <Header>
                 <Heading as="strong">Quase lá</Heading>
@@ -145,5 +154,6 @@ export default function TimeIntervals() {
                 </Button>
             </IntervalBox>
         </Container>
+        </>
     );
 }

@@ -3,9 +3,18 @@ import Image from 'next/image';
 import previewImage from '../../assets/app-preview.png';
 import { ClaimUsernameForm } from './components/ClaimUsernameForm';
 import { Container, Hero, Preview } from './styles';
+import Head from 'next/head';
+import { generateNextSeo } from 'next-seo/pages'
 
 export default function Home() {
     return (
+        <>
+         <Head>
+                {generateNextSeo({
+                    title: 'Descomplique sua agenda',
+                    description: 'Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre.',
+                })}
+            </Head>
         <Container>
             <Hero>
                 <Heading size="4xl">Agendamento descomplicado</Heading>
@@ -26,5 +35,6 @@ export default function Home() {
                 />
             </Preview>
         </Container>
+        </>
     );
 }
